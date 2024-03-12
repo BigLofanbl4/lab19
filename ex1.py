@@ -1,17 +1,20 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
 import json
+import sys
 from datetime import datetime
+
 
 def load_people(file_name):
     with open(file_name, "r") as f:
         return json.load(f)
 
+
 def save_people(file_name, people_list):
     with open(file_name, "w", encoding="utf-8") as f:
         json.dump(people_list, f, ensure_ascii=False, indent=4)
+
 
 def get_person():
     """
@@ -83,12 +86,17 @@ def main():
     people = []
 
     while True:
-        command = input("Введите команду (add, info, list, load, save, exit, help): ").strip().lower().split(maxsplit=1)
+        command = (
+            input("Введите команду (add, info, list, load, save, exit, help): ")
+            .strip()
+            .lower()
+            .split(maxsplit=1)
+        )
 
         match command[0]:
             case "exit":
                 break
-            
+
             case "load":
                 file_name = command[1]
                 people = load_people(file_name)
@@ -101,7 +109,9 @@ def main():
                 person = get_person()
                 people.append(person)
                 people.sort(
-                    key=lambda x: datetime.strptime(".".join(x["birthday"]), "%d.%m.%Y")
+                    key=lambda x: datetime.strptime(
+                        ".".join(x["birthday"]), "%d.%m.%Y"
+                    )
                 )
 
             case "info":
@@ -117,6 +127,7 @@ def main():
 
             case _:
                 print(f"Неизвестная команда {command[0]}", file=sys.stderr)
+
 
 if __name__ == "__main__":
     main()

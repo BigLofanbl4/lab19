@@ -1,11 +1,12 @@
 # !/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-import sys
 import json
+import sys
+from datetime import datetime
+
 from jsonschema import validate
 from jsonschema.exceptions import ValidationError
-from datetime import datetime
 
 
 def validation(instance):
@@ -23,7 +24,7 @@ def validation(instance):
                     "minitems": 3,
                 },
             },
-            "required": ["surname", "name", "zodiac", "birthday"]
+            "required": ["surname", "name", "zodiac", "birthday"],
         },
     }
     try:
@@ -130,7 +131,7 @@ def main():
 
             case ["load", file_name]:
                 new_people_list = load_people(file_name)
-                if (new_people_list):
+                if new_people_list:
                     people = new_people_list
 
             case ["save", file_name]:
@@ -140,7 +141,9 @@ def main():
                 person = get_person()
                 people.append(person)
                 people.sort(
-                    key=lambda x: datetime.strptime(".".join(x["birthday"]), "%d.%m.%Y")
+                    key=lambda x: datetime.strptime(
+                        ".".join(x["birthday"]), "%d.%m.%Y"
+                    )
                 )
 
             case ["info"]:
