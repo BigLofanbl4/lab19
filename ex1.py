@@ -93,19 +93,19 @@ def main():
             .split(maxsplit=1)
         )
 
-        match command[0]:
-            case "exit":
+        match command:
+            case ["exit"]:
                 break
 
-            case "load":
-                file_name = command[1]
-                people = load_people(file_name)
+            case ["load", file_name]:
+                new_people_list = load_people(file_name)
+                if new_people_list:
+                    people = new_people_list
 
-            case "save":
-                file_name = command[1]
+            case ["save", file_name]:
                 save_people(file_name, people)
 
-            case "add":
+            case ["add"]:
                 person = get_person()
                 people.append(person)
                 people.sort(
@@ -114,15 +114,15 @@ def main():
                     )
                 )
 
-            case "info":
+            case ["info"]:
                 surname = input("Введите фамилию: ")
                 selected = select_people(surname, people)
                 display_people(selected)
 
-            case "list":
+            case ["list"]:
                 display_people(people)
 
-            case "help":
+            case ["help"]:
                 get_instructions()
 
             case _:
