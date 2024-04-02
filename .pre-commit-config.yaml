@@ -17,7 +17,7 @@ repos:
 
     -   id: isort
         name: isort
-        entry: isort --settings-file ./.isort.cfg .
+        entry: isort --settings-file ./pyproject.toml .
         language: system
         types: [ python ]
         pass_filenames: false
